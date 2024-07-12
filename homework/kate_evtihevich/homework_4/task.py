@@ -9,7 +9,7 @@ my_dict = {
              'type5': 'List',
              'type6': 'Dictionary',
              'type7': 'Set',
-             'type8': 'Tuple'}
+             8: 'Tuple'}
 }
 
 print(my_dict['tuple'][-1])
@@ -20,6 +20,6 @@ my_dict['list'].pop(1)
 my_dict['set'].add('Victor')
 my_dict['set'].remove('Artem')
 
-my_dict['dict']['i am a tuple'] = 'Tuple'
-my_dict['dict'].pop('type8')
+my_dict['dict'][('i am a tuple',)] = {1: True }
+my_dict['dict'].pop(8)
 print(my_dict)
