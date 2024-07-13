@@ -9,7 +9,7 @@ my_dict = {
              'type5': 'List',
              'type6': 'Dictionary',
              'type7': 'Set',
-             8: 'Tuple',}
+             8: 'Tuple', }
 }
 
 print(my_dict['tuple'][-1])
