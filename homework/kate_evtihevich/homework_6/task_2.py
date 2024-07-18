@@ -17,7 +17,7 @@
 # FuzzBuzz
 # 16
 # ...
-fuzz_buzz_list = []
+
 for num in range(1, 101):
     if num % 3 == 0 and num % 5 == 0:
         num = 'FuzzBuzz'
