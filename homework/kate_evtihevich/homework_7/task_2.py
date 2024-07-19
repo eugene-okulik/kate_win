@@ -8,5 +8,6 @@
 #
 # Помните, что копипаст одного и того же кода - плохо
 words = {'I': 3, 'love': 5, 'Python': 1, '!': 50}
+
 for word, times in words.items():
-    print(word*times, sep='')
+    print(word * times, sep='')
