@@ -32,11 +32,11 @@ class Book:
     material = 'paper'
     text = True
 
-    def __init__(self, title, author, pages, ISBN, is_reserved=False):
+    def __init__(self, title, author, pages, isbn, is_reserved=None):
         self.title = title
         self.author = author
         self.pages = pages
-        self.ISBN = ISBN
+        self.ISBN = isbn
         self.is_reserved = is_reserved
 
     def read(self):
@@ -46,12 +46,14 @@ class Book:
         self.is_reserved = True
 
     def info(self):
-        print(f'Title: {self.title}, Author: {self.author}, pages: {self.pages}, '
-              f'material: {self.material}, reserved') if self.is_reserved else (
-            print(f'Title: {self.title}, Author: {self.author}, pages: {self.pages}, material: {self.material}'))
+        if self.is_reserved:
+            print(f'Title: {self.title}, Author: {self.author}, pages: {self.pages}, material: {self.material}, '
+                  f'reserved')
+        else:
+            print(f'Title: {self.title}, Author: {self.author}, pages: {self.pages}, material: {self.material}')
 
 
-dostoevsky_idiot = Book('Idiot', 'Dostoevsky',  500, 1234567)
+dostoevsky_idiot = Book('Idiot', 'Dostoevsky', 500, 1234567)
 verne_captain = Book("Captain Grants Children", 'Verne', 607, '4803020000-069')
 tolkien_hobbit = Book("The Hobbit", 'Tolkien', 351, '5-8352-0009-9')
 nosov_dunno = Book('Dunno on the moon', 'Nosov', 432, 9785389176713)
@@ -64,8 +66,8 @@ nosov_dunno.info()
 
 
 class TextBook(Book):
-    def __init__(self, title, author, pages, ISBN, subject, grade, is_tasks):
-        super().__init__(title, author, pages, ISBN)
+    def __init__(self, title, author, pages, isbn, subject, grade, is_tasks):
+        super().__init__(title, author, pages, isbn)
         self.subject = subject
         self.grade = grade
         self.is_tasks = is_tasks
