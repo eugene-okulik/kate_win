@@ -1,0 +1,79 @@
+Создайте в базе данных полный набор информации о студенте, заполнив все таблички:
+
+1. Создайте студента (student)
+INSERT INTO students (name, second_name, group_id) VALUES ('Carlos', 'Alcaraz', 2316)
+
+2. Создайте несколько книг (books) и укажите, что ваш созданный студент взял их
+INSERT INTO books (title, taken_by_student_id) VALUES ('The Master', 3667)
+INSERT INTO books (title, taken_by_student_id) VALUES ('How Google Tests Software', 3667)
+
+3. Создайте группу (group) и определите своего студента туда
+INSERT INTO `groups` (title, start_date, end_date) VALUES ('Tennis geniuses', 'apr 2019', 'forever')
+
+4. Создайте несколько учебных предметов (subjects)
+INSERT INTO subjets (title) VALUE ('Quality of Physical Education')
+INSERT INTO subjets (title) VALUE ('Sociology of Physical Activity')
+INSERT INTO subjets (title) VALUE ('Sport for People with Disabilities')
+
+5. Создайте по два занятия для каждого предмета (lessons)
+INSERT INTO lessons (title, subject_id) VALUES ('Quality criteria for physical education', 3531)
+INSERT INTO lessons (title, subject_id) VALUES ('Physical education in different countries', 3531)
+
+INSERT INTO lessons (title, subject_id) VALUES ('Types of physical activity', 3532)
+INSERT INTO lessons (title, subject_id) VALUES ('Physical activity for different age groups', 3532)
+
+INSERT INTO lessons (title, subject_id) VALUES ('Different types of disabilities', 3533)
+INSERT INTO lessons (title, subject_id) VALUES ('Choosing Physical Activity for People with Disabilities', 3533)
+
+6. Поставьте своему студенту оценки (marks) для всех созданных вами занятий
+INSERT INTO marks (value, lesson_id, student_id) VALUES (9.5, 6980, 3667)
+
+INSERT INTO marks (value, lesson_id, student_id) VALUES ('Sobresaliente', 6981, 3667)
+
+INSERT INTO marks (value, lesson_id, student_id) VALUES (8.9, 6982, 3667)
+
+INSERT INTO marks (value,lesson_id, student_id) VALUES ('Notable', 6983, 3667)
+
+INSERT INTO marks (value, lesson_id, student_id) VALUES (6.9, 6984, 3667)
+
+INSERT INTO marks (value,lesson_id, student_id) VALUES ('Aprobado', 6985, 3667)
+
+
+Получите информацию из базы данных:
+
+1. Все оценки студента
+SELECT s.name, s.second_name, m.value
+FROM students s
+JOIN marks m
+ON s.id = m.student_id
+WHERE s.id = 3667
+
+2. Все книги, которые находятся у студента
+SELECT s.name, s.second_name, b.title
+FROM students s 
+JOIN books b 
+ON s.id = b.taken_by_student_id 
+WHERE s.second_name = 'Alkaraz'
+
+3. Для вашего студента выведите всё, что о нем есть в базе: группа, книги, оценки с названиями занятий и предметов 
+(всё одним запросом с использованием Join)
+SELECT  
+s.name, 
+s.second_name, 
+g.title AS group_title, 
+b.title AS book_title, 
+m.value AS mark, 
+l.title AS lesson_title, 
+s2.title AS subject_title 
+FROM students s
+JOIN `groups` g 
+ON s.group_id = g.id
+JOIN books b 
+ON s.id = b.taken_by_student_id 
+JOIN marks m
+ON s.id = m.student_id
+JOIN lessons l
+ON m.lesson_id = l.id 
+JOIN subjets s2
+ON l.subject_id = s2.id 
+WHERE s.id = 3667
