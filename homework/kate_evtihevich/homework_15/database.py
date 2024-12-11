@@ -1,4 +1,4 @@
-"""
+'''
 Создайте в базе данных полный набор информации о студенте, заполнив все таблички
 1. Создайте студента (student)
 2. Создайте несколько книг (books) и укажите, что ваш созданный студент взял их
@@ -10,7 +10,7 @@
 1. Все оценки студента
 2. Все книги, которые находятся у студента
 3. Для вашего студента выведите всё, что о нем есть в базе: группа, книги, оценки с названиями занятий и предметов
-"""
+'''
 
 import mysql.connector as mysql
 
@@ -23,6 +23,7 @@ db = mysql.connect(
 )
 
 cursor = db.cursor(dictionary=True)
+
 insert_query_1 = "INSERT INTO students (name, second_name) VALUES ('Artem', 'Yanush')"
 cursor.execute(insert_query_1)
 student_id = cursor.lastrowid
@@ -87,41 +88,39 @@ JOIN marks m
 ON s.id = m.student_id
 WHERE s.id = %s
 '''
-
 cursor.execute(select_query_1, (student_id,))
 print(cursor.fetchall())
 
 select_query_2 = '''
 SELECT s.name, s.second_name, b.title
-FROM students s 
-JOIN books b 
-ON s.id = b.taken_by_student_id 
+FROM students s
+JOIN books b
+ON s.id = b.taken_by_student_id
 WHERE s.id = %s
 '''
-
 cursor.execute(select_query_2, (student_id,))
 print(cursor.fetchall())
 
 select_query_3 = '''
-SELECT  
-s.name, 
-s.second_name, 
-g.title AS group_title, 
-b.title AS book_title, 
-m.value AS mark, 
-l.title AS lesson_title, 
-s2.title AS subject_title 
+SELECT
+s.name,
+s.second_name,
+g.title AS group_title,
+b.title AS book_title,
+m.value AS mark,
+l.title AS lesson_title,
+s2.title AS subject_title
 FROM students s
-JOIN `groups` g 
+JOIN `groups` g
 ON s.group_id = g.id
-JOIN books b 
-ON s.id = b.taken_by_student_id 
+JOIN books b
+ON s.id = b.taken_by_student_id
 JOIN marks m
 ON s.id = m.student_id
 JOIN lessons l
-ON m.lesson_id = l.id 
+ON m.lesson_id = l.id
 JOIN subjets s2
-ON l.subject_id = s2.id 
+ON l.subject_id = s2.id
 WHERE s.id = %s
 '''
 cursor.execute(select_query_3, (student_id,))
